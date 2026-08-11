@@ -12,24 +12,38 @@ export default function QuoteForm() {
     service: DEFAULT_SERVICES[0].title,
     details: ''
   });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const subject = `Quote Request — ${form.service}`;
-    const body =
-      `Name: ${form.name}\n` +
-      `Phone: ${form.phone}\n` +
-      `Email: ${form.email}\n` +
-      `Location: ${form.location}\n` +
-      `Service Needed: ${form.service}\n\n` +
-      `Project Details:\n${form.details}`;
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-      body
-    )}`;
+    setStatus('sending');
+
+    try {
+      const res = await fetch('/api/send-quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+
+      if (!res.ok) throw new Error('Failed to send');
+
+      setStatus('success');
+      setForm({
+        name: '',
+        phone: '',
+        email: '',
+        location: '',
+        service: DEFAULT_SERVICES[0].title,
+        details: ''
+      });
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
   }
 
   return (
@@ -116,13 +130,26 @@ export default function QuoteForm() {
       </div>
       <button
         type="submit"
-        className="w-full bg-navy text-white py-3.5 text-sm font-semibold hover:bg-gold hover:text-navy-deep transition-colors"
+        disabled={status === 'sending'}
+        className="w-full bg-navy text-white py-3.5 text-sm font-semibold hover:bg-gold hover:text-navy-deep transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Request a Quote
+        {status === 'sending' ? 'Sending...' : 'Request a Quote'}
       </button>
-      <p className="text-xs text-steel mt-3 text-center">
-        Opens your email app with this request pre-filled to {CONTACT.email}.
-      </p>
+      {status === 'success' && (
+        <p className="text-xs text-green-600 mt-3 text-center">
+          ✓ Your quote request has been sent to {CONTACT.email}. We&#39;ll get back to you shortly.
+        </p>
+      )}
+      {status === 'error' && (
+        <p className="text-xs text-red-600 mt-3 text-center">
+          Something went wrong. Please try again or email us directly at {CONTACT.email}.
+        </p>
+      )}
+      {status === 'idle' && (
+        <p className="text-xs text-steel mt-3 text-center">
+          We&#39;ll send your request straight to {CONTACT.email}.
+        </p>
+      )}
     </form>
   );
 }

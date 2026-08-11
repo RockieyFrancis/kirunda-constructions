@@ -15,14 +15,17 @@ Everything is hardcoded and edited directly in the source files, then deployed.
 
 ## Forms
 
-The Contact and Quote forms use `mailto:` links — clicking "Send" opens the visitor's
-email app with the message pre-filled to `kirundaconstructions@gmail.com`. No backend,
-no API keys, nothing to configure.
+The Contact and Quote forms submit via Next.js API routes (`/api/send-contact` and
+`/api/send-quote`) which forward the data to **FormSubmit** — a free email delivery
+service that sends the message to `kirundaconstructions@gmail.com`. No email client
+is required on the visitor's device, so the buttons always work.
 
-If you later want real server-side email delivery (so messages don't rely on the visitor
-having an email client set up), the cleanest options are:
-- **Formspree** or **Web3Forms** — free, just a public form endpoint, no server code
-- **Resend** via a Next.js API route — a few lines of code, needs one API key
+> **First-time setup:** FormSubmit requires a one-time email confirmation. The first
+> time a form is submitted, FormSubmit sends a confirmation email to
+> `kirundaconstructions@gmail.com`. Click the confirmation link once, and all future
+> submissions will be delivered automatically.
+>
+> If you prefer a different provider, edit the API routes in `src/app/api/`.
 
 ## Local development
 

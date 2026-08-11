@@ -2,6 +2,7 @@ import SectionLabel from '@/components/ui/SectionLabel';
 import Stats from '@/components/home/Stats';
 import { buildMetadata } from '@/lib/seo';
 import { SITE, MISSION, VISION, CORE_VALUES, CEO } from '@/lib/constants';
+import { InstagramIcon, TikTokIcon } from '@/components/ui/SocialIcons';
 
 export const metadata = buildMetadata({
   title: 'About Us',
@@ -88,12 +89,24 @@ export default function AboutPage() {
               <div className="font-display text-xl font-semibold">{CEO.name}</div>
               <div className="text-gold-light text-sm mt-0.5 mb-1.5">{CEO.role}</div>
               <div className="text-white/65 text-sm mb-2">{CEO.credentials}</div>
-              <div className="flex gap-4">
-                <a href={CEO.instagram} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-gold border-b border-gold/40">
-                  Instagram
+              <div className="flex gap-3">
+                <a
+                  href={CEO.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="w-8 h-8 border border-gold/35 flex items-center justify-center text-gold hover:bg-gold hover:text-navy-deep transition-colors"
+                >
+                  <InstagramIcon className="w-4 h-4" />
                 </a>
-                <a href={CEO.tiktok} target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-gold border-b border-gold/40">
-                  TikTok
+                <a
+                  href={CEO.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="w-8 h-8 border border-gold/35 flex items-center justify-center text-gold hover:bg-gold hover:text-navy-deep transition-colors"
+                >
+                  <TikTokIcon className="w-4 h-4" />
                 </a>
               </div>
             </div>

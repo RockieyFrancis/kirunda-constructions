@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CONTACT, SITE, FOOTER_CREDIT } from '@/lib/constants';
 import { InstagramIcon, TikTokIcon } from '@/components/ui/SocialIcons';
+
 const QUICK_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
@@ -44,17 +45,19 @@ export default function Footer() {
                 href="https://www.instagram.com/kirundaibrahiim"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-gold/35 flex items-center justify-center text-[11px] font-mono text-gold-light"
+                aria-label="Instagram"
+                className="w-8 h-8 border border-gold/35 flex items-center justify-center text-gold-light hover:bg-gold hover:text-navy-deep transition-colors"
               >
-                IG
+                <InstagramIcon className="w-4 h-4" />
               </a>
               <a
                 href="https://vm.tiktok.com/ZS9h4T8PLTLe4-5uxkG/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-gold/35 flex items-center justify-center text-[11px] font-mono text-gold-light"
+                aria-label="TikTok"
+                className="w-8 h-8 border border-gold/35 flex items-center justify-center text-gold-light hover:bg-gold hover:text-navy-deep transition-colors"
               >
-               TikTok
+                <TikTokIcon className="w-4 h-4" />
               </a>
             </div>
           </div>

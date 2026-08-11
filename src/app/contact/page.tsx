@@ -2,6 +2,7 @@ import SectionLabel from '@/components/ui/SectionLabel';
 import ContactForm from '@/components/forms/ContactForm';
 import { buildMetadata } from '@/lib/seo';
 import { SITE, CONTACT, CEO } from '@/lib/constants';
+import { InstagramIcon, TikTokIcon } from '@/components/ui/SocialIcons';
 
 export const metadata = buildMetadata({
   title: 'Contact',
@@ -56,13 +57,24 @@ export default function ContactPage() {
               </div>
               <div className="bg-white dark:bg-navy p-6">
                 <div className="font-mono text-[11px] text-gold uppercase tracking-wide mb-2">Follow</div>
-                <div className="text-sm space-x-2">
-                  <a href={CEO.instagram} target="_blank" rel="noopener noreferrer" className="text-gold border-b border-gold/40">
-                    Instagram
+                <div className="flex gap-3">
+                  <a
+                    href={CEO.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="w-8 h-8 border border-gold/35 flex items-center justify-center text-gold hover:bg-gold hover:text-navy-deep transition-colors"
+                  >
+                    <InstagramIcon className="w-4 h-4" />
                   </a>
-                  <span className="text-steel">·</span>
-                  <a href={CEO.tiktok} target="_blank" rel="noopener noreferrer" className="text-gold border-b border-gold/40">
-                    TikTok
+                  <a
+                    href={CEO.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok"
+                    className="w-8 h-8 border border-gold/35 flex items-center justify-center text-gold hover:bg-gold hover:text-navy-deep transition-colors"
+                  >
+                    <TikTokIcon className="w-4 h-4" />
                   </a>
                 </div>
               </div>

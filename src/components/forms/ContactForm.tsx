@@ -5,18 +5,31 @@ import { CONTACT } from '@/lib/constants';
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const subject = `Website Contact — ${form.name || 'New message'}`;
-    const body = `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nMessage:\n${form.message}`;
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-      body
-    )}`;
+    setStatus('sending');
+
+    try {
+      const res = await fetch('/api/send-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+
+      if (!res.ok) throw new Error('Failed to send');
+
+      setStatus('success');
+      setForm({ name: '', email: '', phone: '', message: '' });
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
   }
 
   return (
@@ -79,13 +92,26 @@ export default function ContactForm() {
       </div>
       <button
         type="submit"
-        className="w-full bg-navy dark:bg-gold text-white dark:text-navy-deep py-3.5 text-sm font-semibold hover:opacity-90 transition-opacity"
+        disabled={status === 'sending'}
+        className="w-full bg-navy dark:bg-gold text-white dark:text-navy-deep py-3.5 text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Send Message
+        {status === 'sending' ? 'Sending...' : 'Send Message'}
       </button>
-      <p className="text-xs text-steel dark:text-white/40 mt-3 text-center">
-        Opens your email app with this message pre-filled to {CONTACT.email}.
-      </p>
+      {status === 'success' && (
+        <p className="text-xs text-green-600 dark:text-green-400 mt-3 text-center">
+          ✓ Your message has been sent to {CONTACT.email}. We&#39;ll get back to you shortly.
+        </p>
+      )}
+      {status === 'error' && (
+        <p className="text-xs text-red-600 dark:text-red-400 mt-3 text-center">
+          Something went wrong. Please try again or email us directly at {CONTACT.email}.
+        </p>
+      )}
+      {status === 'idle' && (
+        <p className="text-xs text-steel dark:text-white/40 mt-3 text-center">
+          We&#39;ll send your message straight to {CONTACT.email}.
+        </p>
+      )}
     </form>
   );
 }
