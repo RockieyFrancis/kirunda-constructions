@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F7F5EF;
+  --fg: #1B1E24;
+  --card-bg: #FFFFFF;
+  --line: rgba(10, 31, 63, 0.12);
+}
+
+.dark {
+  --bg: #071530;
+  --fg: #F2F1EC;
+  --card-bg: #0A1F3F;
+  --line: rgba(224, 193, 88, 0.15);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.label {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A227;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: #C9A227;
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(201, 162, 39, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 162, 39, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.corner-frame {
+  position: relative;
+}
+.corner-frame::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid #C9A227;
+  border-left: 2px solid #C9A227;
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Fade-up reveal used by ScrollReveal wrapper */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
