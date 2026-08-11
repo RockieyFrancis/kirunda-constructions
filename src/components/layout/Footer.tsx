@@ -1,6 +1,7 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { CONTACT, SITE, FOOTER_CREDIT } from '@/lib/constants';
-
+import { InstagramIcon, TikTokIcon } from '@/components/ui/SocialIcons';
 const QUICK_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
@@ -31,7 +32,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
           <div>
             <Link href="/" className="flex items-center gap-3 mb-4">
-            <img src="/logo.png" alt="Kirunda Constructions Logo" className="w-10 h-10 object-contain" />
+            <Image src="/logo.png" alt="Kirunda Constructions Logo" width={40} height={40} className="w-10 h-10 object-contain" />
               <div>
                 <div className="font-display font-semibold text-white">Kirunda Constructions</div>
                 <div className="font-mono text-[9.5px] text-gold-light uppercase">Built on Trust</div>
@@ -53,7 +54,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="w-8 h-8 border border-gold/35 flex items-center justify-center text-[11px] font-mono text-gold-light"
               >
-                TT
+               TikTok
               </a>
             </div>
           </div>

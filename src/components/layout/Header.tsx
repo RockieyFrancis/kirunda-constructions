@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
@@ -28,7 +29,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-[100] bg-navy/95 dark:bg-navy-deep/95 backdrop-blur-md border-b border-gold/15">
       <div className="max-w-[1180px] mx-auto px-6 h-[76px] flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 text-white">
-          <img src="/logo.png" alt="Kirunda Constructions Logo" className="w-10 h-10 object-contain" />
+          <Image src="/logo.png" alt="Kirunda Constructions Logo" width={40} height={40} className="w-10 h-10 object-contain" />
 
           <div className="leading-tight">
             <div className="font-display font-semibold text-base">Kirunda Constructions</div>

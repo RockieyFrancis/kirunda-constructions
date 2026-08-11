@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
@@ -23,7 +23,10 @@ export const metadata: Metadata = {
     statusBarStyle: 'black-translucent',
     title: 'Kirunda Construction'
   },
-  formatDetection: { telephone: false, address: false, email: false },
+  formatDetection: { telephone: false, address: false, email: false }
+};
+
+export const viewport: Viewport = {
   themeColor: '#0A1F3F'
 };
 
